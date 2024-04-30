@@ -1,1 +1,1 @@
-`navigator.serviceWorker.register()`
+// `navigator.serviceWorker.register()`
