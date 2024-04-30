@@ -1,12 +1,10 @@
 function showResult(event) {
     console.log('gg')
     event.preventDefault()
-
-    // check what text was put into the form field
     let formText = document.getElementById('name').value
     checkForName(formText)
 
-    console.log("::: Form Submitted :::")
+    console.log("Form Submitted")
     fetch('http://localhost:8080/test')
     .then(res => res.json())
     .then(function(res) {
@@ -28,7 +26,7 @@ function handleSubmit(event) {
     console.log('Server response:', response);
     document.getElementById('results').innerHTML =
     
-    
+
     response.score_tag;
     })
     .catch(error => {
