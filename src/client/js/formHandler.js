@@ -21,7 +21,7 @@ function handleSubmit(event) {
     event.preventDefault();
     const formText = document.getElementById('name').value;
     if (urlCheker(formText)) {
-    postData('/api', { url: formText })
+    postingData('/api', { url: formText })
     .then(response => {
     console.log('Server response:', response);
     document.getElementById('results').innerHTML =
@@ -37,7 +37,7 @@ function handleSubmit(event) {
     console.log('Invalid URL');
     }
     }
-    async function postData(url = '', data = {}) {
+    async function postingData(url = '', data = {}) {
         try {
         const response = await fetch(url, {
         method: 'POST',
