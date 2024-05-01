@@ -34,7 +34,7 @@ function handleSubmit(event) {
     });
     } else {
     alert('Invalid URL');
-    console.log('Invalid URL');
+ 
     }
     }
     async function postingData(url = '', data = {}) {
@@ -58,7 +58,7 @@ function handleSubmit(event) {
     event.preventDefault()
     let formText = document.getElementById('name').value
     Client.checkForName(formText)
-    console.log("Form Submitted !!")
+
    }
    export { handleSubmit }
    
