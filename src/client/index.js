@@ -7,7 +7,8 @@ import './styles/header.css'
 import { checkForName } from './js/nameChecker'
 import { handleSubmit,showResult } from './js/formHandler'
 
+
 console.log(checkForName,showResult);
 
-alert("I EXIST")
-console.log("CHANGE!!");
+alert("exit")
+console.log("gg!!");

@@ -11,7 +11,7 @@ const analyze = async (url, key) => {
         } else if (code === 212) {
             throw new Error(response.data.status.msg);
         }
-        
+    
         return successResponse(response.data);
     } catch (error) {
         return handleError(error.message);
