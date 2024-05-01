@@ -1,47 +1,47 @@
-const meaningCloud = "https://api.meaningcloud.com/sentiment-2.1"
-const axios = require("axios")
+const BASE_API_URL = "https://api.meaningcloud.com/sentiment-2.1";
+const axios = require("axios");
 
-
-analyze = async (url, key) => {
-    // the URL=`${BASE_API_URL}?key=${MEAN_CLOUD_API_KEY}&url=${req.body.url}&lang=en`
-    analysis = await axios.get(`${meaningCloud}?key=${key}&url=${url}&lang=en`)
-        .then(function (response) {
-            const { code } = response.data.status
-            //handle errors
-            if (code == 100) {
-                const error = handleError(code, "please enter a valid URL")
-                return error
-            } else if (code == 212) {
-                const error = handleError(code, response.data.status.msg)
-                return error
-            }
-            return successResponse(response.data, code)
-        })
-    return analysis
-}
-
-const handleError = (code, msg) => {
-    const error = {
-        code: code,
-        msg: msg
+const analyze = async (url, key) => {
+    try {
+        const response = await axios.get(`${BASE_API_URL}?key=${key}&url=${url}&lang=en`);
+        const { code } = response.data.status;
+        
+        if (code === 100) {
+            throw new Error("Please enter a valid URL");
+        } else if (code === 212) {
+            throw new Error(response.data.status.msg);
+        }
+        
+        return successResponse(response.data);
+    } catch (error) {
+        return handleError(error.message);
     }
-    return error
-}
+};
 
-//cure the data and send it to the client
-const successResponse = (data, code) =>{
-    const { score_tag, agreement, subjectivity, confidence, irony } = data
-            let sample = {
-                score_tag: score_tag,
-                agreement: agreement,
-                subjectivity: subjectivity,
-                confidence: confidence,
-                irony: irony
-            }
-            result = { sample, status: code }
-            return result
-}
+const handleError = (msg) => {
+    return {
+        error: {
+            code: 400,
+            message: msg
+        }
+    };
+};
+
+const successResponse = (data) => {
+    const { score_tag, agreement, subjectivity, confidence, irony } = data;
+    const sample = {
+        score_tag: score_tag,
+        agreement: agreement,
+        subjectivity: subjectivity,
+        confidence: confidence,
+        irony: irony
+    };
+    return {
+        sample: sample,
+        status: 200
+    };
+};
 
 module.exports = {
     analyze
-}
+};
