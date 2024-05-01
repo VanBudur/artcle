@@ -13,52 +13,91 @@ function showResult(event) {
     })
 }
 
-import { urlCheker } from './urlChecker';
+import { urlChecker } from './urlChecker';
+
 const form = document.getElementById('urlForm');
 form.addEventListener('submit', handleSubmit);
 
-function handleSubmit(event) {
+async function handleSubmit(event) {
     event.preventDefault();
     const formText = document.getElementById('name').value;
-    if (urlCheker(formText)) {
-    postingData('/api', { url: formText })
-    .then(response => {
-    console.log('Server response:', response);
-    document.getElementById('results').innerHTML =
     
-
-    response.score_tag;
-    })
-    .catch(error => {
-    console.error('Error:', error);
-    });
-    } else {
-    alert('Invalid URL');
- 
-    }
-    }
-    async function postingData(url = '', data = {}) {
+    if (urlChecker(formText)) {
         try {
+            const response = await postingData('/api', { url: formText });
+            console.log('Server response:', response);
+            document.getElementById('results').innerHTML = response.score_tag;
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    } else {
+        alert('Invalid URL');
+    }
+}
+
+async function postingData(url = '', data = {}) {
+    try {
         const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
         });
         return response.json();
-        } catch (error) {
+    } catch (error) {
         throw error;
-        }
-        }
+    }
+}
 
-export { handleSubmit,showResult }
+export { handleSubmit };
 
-function handleSubmit(event) {
-    event.preventDefault()
-    let formText = document.getElementById('name').value
-    Client.checkForName(formText)
+// import { urlCheker } from './urlChecker';
+// const form = document.getElementById('urlForm');
+// form.addEventListener('submit', handleSubmit);
 
-   }
-   export { handleSubmit }
+// function handleSubmit(event) {
+//     event.preventDefault();
+//     const formText = document.getElementById('name').value;
+//     if (urlCheker(formText)) {
+//     postingData('/api', { url: formText })
+//     .then(response => {
+//     console.log('Server response:', response);
+//     document.getElementById('results').innerHTML =
+    
+
+//     response.score_tag;
+//     })
+//     .catch(error => {
+//     console.error('Error:', error);
+//     });
+//     } else {
+//     alert('Invalid URL');
+ 
+//     }
+//     }
+//     async function postingData(url = '', data = {}) {
+//         try {
+//         const response = await fetch(url, {
+//         method: 'POST',
+//         headers: {
+//         'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(data)
+//         });
+//         return response.json();
+//         } catch (error) {
+//         throw error;
+//         }
+//         }
+
+// export { handleSubmit,showResult }
+
+// function handleSubmit(event) {
+//     event.preventDefault()
+//     let formText = document.getElementById('name').value
+//     Client.checkForName(formText)
+
+//    }
+//    export { handleSubmit }
    
