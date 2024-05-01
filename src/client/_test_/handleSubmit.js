@@ -1,8 +1,7 @@
+const { handleSubmit } = require("../views/js/handleSubmit");
 
-const { handleSubmit } = require("../views/js/handleSubmit")
-
-describe('handleSubmit', ()=> {
-    it('returns something', () => {
+describe('handleSubmit', () => {
+    it('should be defined', () => {
         expect(handleSubmit).toBeDefined();
-    })
-})
+    });
+});
